@@ -35,7 +35,7 @@ cout << "Numero: " << numero << endl;
         nuevo += (medio%10)*10 + (medio/10)*100;
       } else {nuevo += (medio%10)*100 + (medio/10)*10; }
 
-  cout << "Resultado: " << nuevo << endl;
+  cout << "Resultado: " << nuevo << endl; 
 //}else{cout<<"El numero no es de 4 digitos.";}
 
 return 0;

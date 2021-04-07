@@ -207,6 +207,26 @@
       return vect;
     }
 
+    //Funcion para ordenar pares e impares
+    void even(){
+      int i = 0, j = sz - 1;
+
+      while(i < j){
+        if(storage[i] % 2 == 0) {
+          i++;
+        }
+        if(storage[j] % 2 !=  0) {
+          j--;
+        }
+
+        if(storage[i] % 2 != 0 && storage[j] % 2 == 0) {
+          swap(i,j);
+          i++;
+          j--;
+        }
+        
+      }
+    }
 
   };
 #endif

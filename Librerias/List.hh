@@ -95,25 +95,6 @@ template <typename T>
       }
 
       //Funcion 'pop_back' elimina el ultimo elemento de la lista.
-      //Version lista simplemente enlazada
-    /*  void pop_back() {
-        assert(!empty() && "Lista vacia");
-        if(first == last) {
-          delete last;
-          first = nullptr;
-          last = nullptr;
-        } else {
-          Node *n = first;
-          while(n -> getNext() != last) {
-            n = n->getNext();
-          }
-          n->setNext(nullptr);
-          delete last;
-          last = n;
-        }
-        sz -= 1;
-      } */
-      //Funcion 'pop_back' elimina el ultimo elemento de la lista.
       //Version lista doblemente enlazada
       void pop_back() {
         assert(!empty() && "Lista vacia");
@@ -130,55 +111,36 @@ template <typename T>
         sz -= 1;
       }
 
-        //Funcion remove //Version lista simplemente enlazada
 
-    /*  void remove (const T& e){       //Elimina todos los indicencias
+        //Funcion removeAll
+      void removeAll (const T& e){       //Elimina todos los indicencias
         if(!empty()) {
         Node *n = first;
-        Node *preNode = n; //Puntero al nodo anterior
+        Node *aux;
         while(n != nullptr) {
           if(n->getData() == e){    //Si encuentra el elemento.
-            if(preNode == n) {  //Cuando es el primer elemento de la lista.
-              first = first->getNext(); //'fist' apunta al siguiente nodo
-              delete n; //se borra el nodo en 'n'
-              n = first;
-              preNode = n;
-            } else {
-                preNode->setNext(n->getNext()); //'preNode' apuntara al siguiente nodo de 'n'
-                delete n;                     //Se borra 'n'
-                n = preNode->getNext();       //'n' sera el siguiente nodo.
-
-            }
-            sz -= 1;
+            if(n == first) {  //Cuando es el primer nodo de la lista.
+              pop_front();
+              n = n->getNext();
+            }else if(n == last) { //Si 'n' es el ultimo nodo.
+                pop_back();
+                n = nullptr;
+              } else {
+                  n -> getPrev() -> setNext(n->getNext());
+                  n -> getNext() -> setPrev(n->getPrev());
+                  aux = n->getNext();
+                  delete n;
+                  n = aux;
+                }
+        sz -= 1;
           } else{   //Si no encuentra el numero, mueve los nodos una posicion.
-          preNode = n;
-          n = n->getNext();
+              n = n->getNext();
             }
           }
         }
       }
-      void remove (const T& e){       //Elimina una vez.
-          if(!empty()) {
-          Node *n = first;
-          Node *preNode = n; //Puntero al nodo anterior
-          while(n != nullptr && n->getData() != e) { //recorre el arreglo mientras el valor en 'Data' no sea el numero a buscar
-              preNode = n;          //Avanza los nodos una posicion
-              n = n->getNext();
-            } //Cuando
-              if(preNode == n) {  //Cuando es el primer elemento de la lista.
-                first = first->getNext(); //'fist' apunta al siguiente nodo
-                delete n; //se borra el nodo en 'n'
-                n = first;
-                preNode = n;
-              } else if(n != nullptr) {
-                  preNode->setNext(n->getNext()); //'preNode' apuntara al siguiente nodo de 'n'
-                  delete n;                     //Se borra 'n'
-                  n = preNode->getNext();       //'n' sera el siguiente nodo.
-              }
-              sz -= 1;
-            }
-          }
-          */
+
+
 
           //Funcion remove //Version lista doblemente enlazada
       void remove (const T& e) {
@@ -189,9 +151,7 @@ template <typename T>
               }
             //Cuando se encuentra el elemento o termina la lista sale del while.
             if(n == first){ //Si es el primer elemento de la lista.
-                first = first -> getNext();
-                first -> setPrev(nullptr);
-                delete n;
+                pop_front();
               }
             else {
                 n -> getPrev() -> setNext(n->getNext());
@@ -214,8 +174,27 @@ template <typename T>
       last = p;
     }
 
+    void remove2(const T& e){
+      if(empty()) return;
+      if(first->getData() == e) {pop_front();
 
+    }else {
+      Node *t = first->getNext();
+      Node *s = nullptr;
 
+      while(t != nullptr && t->getData() != e){
+        s = t;
+        t = t->getNext();
+
+      }
+      if(t == nullptr) return;
+      s->setNext(t->getNext());
+      if(t == last){
+        last = s;
+      }
+      delete t;
+    }
+  }
   };
 
 

@@ -152,8 +152,11 @@ template <typename T>
             //Cuando se encuentra el elemento o termina la lista sale del while.
             if(n == first){ //Si es el primer elemento de la lista.
                 pop_front();
-              }
-            else {
+              }else if(n == last) { //Si 'n' es el ultimo nodo.
+                  pop_back();
+                  n = nullptr;
+
+            }else {
                 n -> getPrev() -> setNext(n->getNext());
                 n -> getNext() -> setPrev(n->getPrev());
                 delete n;
@@ -162,6 +165,30 @@ template <typename T>
         }
       }
 
+
+    //Funcion removeAt  elimina un nodo en una posicion
+
+   void removeAt(const int p){
+      assert(p >= 0 && p < sz && "posicion invalida");
+      Node *n = first;
+
+      for(int i=0; i < p;i++) {
+        n = n->getNext();
+      }
+      if(n == first){ //Si es el primer elemento de la lista.
+          pop_front();
+        }else if(n == last) { //Si 'n' es el ultimo nodo.
+            pop_back();
+            n = nullptr;
+      }else {
+          n -> getPrev() -> setNext(n->getNext());
+          n -> getNext() -> setPrev(n->getPrev());
+          delete n;
+      }
+      sz -= 1;
+    }
+
+//funcion 'reverse' invierte una lista
     void reverse() {
       Node *n;
       Node *p = first;
@@ -174,27 +201,9 @@ template <typename T>
       last = p;
     }
 
-    void remove2(const T& e){
-      if(empty()) return;
-      if(first->getData() == e) {pop_front();
 
-    }else {
-      Node *t = first->getNext();
-      Node *s = nullptr;
 
-      while(t != nullptr && t->getData() != e){
-        s = t;
-        t = t->getNext();
 
-      }
-      if(t == nullptr) return;
-      s->setNext(t->getNext());
-      if(t == last){
-        last = s;
-      }
-      delete t;
-    }
-  }
   };
 
 

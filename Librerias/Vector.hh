@@ -190,10 +190,8 @@
     void reverse() {
       unsigned int i = 0, j = sz - 1;
       while(i < j) {
-      T tmp = storage[i];
-        storage[i] = storage[j];
-        storage[j] = tmp;
-        i++;
+      swap(i,j);    //O(1)
+        i++;  
         j--;
       }
     }
@@ -224,8 +222,30 @@
           i++;
           j--;
         }
-        
       }
+    }
+
+    //Funcion 'rotate' que rota los elementos 'n' posiciones
+    void rotate( int p){
+      int tmp, tmp2;
+      int i = sz - 1, j = 0;
+      tmp = storage[i]  ;
+      while(p > 0){
+        while(j < sz){
+        if(i-1 < 0) { i = sz;}
+        tmp2 = storage[i-1];
+        storage[i-1] = tmp;
+        i--;
+        j++;
+        tmp = tmp2;
+      }
+        cout << "tmp: " << tmp << "  tmp2: " << tmp2 << endl;
+        print();
+        j = 0;
+        p--;
+      }
+
+
     }
 
   };

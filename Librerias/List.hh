@@ -40,6 +40,7 @@ template <typename T>
 
       bool empty() {return first == nullptr;}
       int size() {return sz;}
+      const T& front() {return first->getData();}
 
       //push_back
           void push_back(const T& d) {
@@ -53,6 +54,19 @@ template <typename T>
             last = n;
             sz += 1;
           }
+
+      //Funcion push_back de nodos
+
+      void push_back(Node* n) {
+        n ->setNext(nullptr);
+        if(empty()) {
+          first = n;
+        } else {
+          last -> setNext(n);
+        }
+        last = n;
+        sz += 1;
+      }
 
         //push_front
         void push_front(const T& e){
@@ -201,8 +215,90 @@ template <typename T>
       last = p;
     }
 
+    size_t usedMem() {
 
+      //Nodo
+      return sizeof(Node) * sz   //Punteros next y prev
+      +
+      //lista
+      (2*sizeof(Node*) + //punteros first y last
+      sizeof(unsigned int) ); //tamaño de sz
 
+    }
+
+    T at(int p){
+      Node *n = first;
+      for(int i=0; i < p;i++) {
+        n = n->getNext();
+      }
+      return n->getData();
+
+    }
+
+    //Funcion mergeSort
+
+    //Funcion 'split'
+    void split(List<T>& f, List<T>& s) {
+      assert(f.empty() && "Lista Vacia");
+      assert(s.empty() && "Lista Vacia");
+      unsigned int i = 0;
+      Node* n = first;
+      while(first != nullptr) {
+        n = first;
+        first = first -> getNext();
+        if(i % 2 == 0)
+          f.push_back(n);
+         else
+          s.push_back(n);
+        i++;
+      }
+      last = nullptr;
+      sz = 0;
+    }
+
+    //Funcion merge
+    void merge(List<T>& f, List<T>& s) {
+      assert(empty() && "Lista Vacia");
+      Node* n = nullptr;
+      while(f.first != nullptr && s.first != nullptr) {
+        if(f.front() < s.front()) {
+          n = f.first;
+          f.first = f.first -> getNext();
+        } else {
+          n = s.first;
+          s.first = s.first -> getNext();
+        }
+        push_back(n);
+      }
+      while(f.first != nullptr) {
+        n = f.first;
+        f.first = f.first -> getNext();
+        push_back(n);
+      }
+      while (s.first != nullptr) {
+        n = s.first;
+        s.first = s.first -> getNext();
+        push_back(n);
+      }
+      f.last = nullptr;
+      f.sz = 0;
+      s.last = nullptr;
+      s.sz = 0;
+    }
+
+    //Funcion sort recursiva
+    void sort() {
+      if(size() <= 1){
+        return;
+      } else {
+        List<T> f;
+        List<T> s;
+        split(f, s);
+        f.sort();
+        s.sort();
+        merge(f, s);
+      }
+    }
 
   };
 

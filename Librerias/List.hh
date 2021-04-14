@@ -66,18 +66,21 @@ template <typename T>
         }
         last = n;
         sz += 1;
+
       }
 
         //push_front
         void push_front(const T& e){
           Node* n = new Node(e);
           n -> setNext(first);
-          first -> setPrev(n);
-          if(empty()) {
+
+          if(empty())
             last = n;
-          }
+          else
+            first -> setPrev(n);
           first = n;
           sz += 1;
+
         }
 
       //Imprimir lista version ats

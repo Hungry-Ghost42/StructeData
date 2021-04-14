@@ -67,6 +67,17 @@
       sz += 1;
     }
 
+    void pop_back() {
+      sz -= 1;
+    }
+
+    void pop_front() {
+      for(unsigned int i = 0; i < sz; i++) {
+        storage[i] = storage[i + 1];
+      }
+      sz -= 1;
+    }
+
     void push_front(const T& e) {
       if(sz == capacity) {
         resize();
@@ -77,6 +88,8 @@
       storage[0] = e;
       sz += 1;
     }
+
+
 
     bool isValid(unsigned pos) { return pos >= 0 && pos < sz;}
 
@@ -130,9 +143,13 @@
     void print() {
       for(unsigned int i = 0; i < sz; i++) cout << " " << at(i);
       cout << endl;
-
     }
 
+    void print_reverse(){
+      for(unsigned int i = sz - 1; i >= 1; i--) {
+        cout << at(i) << " " ; }
+      cout << at(0) << endl;
+    }
 
 
     void bsort() {
@@ -191,10 +208,11 @@
       unsigned int i = 0, j = sz - 1;
       while(i < j) {
       swap(i,j);    //O(1)
-        i++;  
+        i++;
         j--;
       }
     }
+
 
     //Slice
     Vector<T> slice(unsigned int a, unsigned int b) {
@@ -225,7 +243,7 @@
       }
     }
 
-    //Funcion 'rotate' que rota los elementos 'n' posiciones
+    //Funcion 'rotate' que rota(mueve) los elementos 'n' posiciones
     void rotate( int p){
       int tmp, tmp2;
       int i = sz - 1, j = 0;
@@ -244,8 +262,6 @@
         j = 0;
         p--;
       }
-
-
     }
 
   };

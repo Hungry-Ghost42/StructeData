@@ -10,7 +10,7 @@ using namespace std;
 template <typename T>
 
   //Implementado con Listas.
-  
+/*
   class Stack{
   private:
     List<T> storage;
@@ -23,7 +23,7 @@ template <typename T>
     unsigned int size() {return storage.size();}
     void print() {storage.print();}
   };
-/*
+*/
 
     //Implementacion con Vectores.
     class Stack{
@@ -39,6 +39,6 @@ template <typename T>
       void print() { storage.print_reverse();}
 
     };
-*/
+//
 
 #endif

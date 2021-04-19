@@ -41,6 +41,7 @@ template <typename T>
       bool empty() {return first == nullptr;}
       int size() {return sz;}
       const T& front() {return first->getData();}
+      const T& back() {return last->getData();}
 
       //push_back
           void push_back(const T& d) {
